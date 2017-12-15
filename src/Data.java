@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data {
     static double diameter;//直径
@@ -13,7 +14,5 @@ public class Data {
     public double sandConcentration;//砂浓度
     public int DRE;//减阻率
 
-
-
-    public ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+    public List<List<Object>> data ;
 }

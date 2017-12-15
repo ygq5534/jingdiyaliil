@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class CaculatePress {
     static final double PI = 3.1415926;
@@ -29,14 +30,14 @@ public class CaculatePress {
     CaculatePress(){
         super();
     }
-    CaculatePress(ArrayList<String> dataRow){
-        wellheadPressure = Double.parseDouble(dataRow.get(1));
-        displacement = Double.parseDouble(dataRow.get(2));
-        liquidType = Integer.parseInt(dataRow.get(3));
-        parameter_1 = Integer.parseInt(dataRow.get(4));
-        parameter_2 = Integer.parseInt(dataRow.get(5));
-        sandConcentration = Double.parseDouble(dataRow.get(6));
-        DRE = Double.parseDouble(dataRow.get(7));
+    CaculatePress(List<Object> dataRow){
+        wellheadPressure = Double.parseDouble(dataRow.get(1).toString());
+        displacement = Double.parseDouble(dataRow.get(2).toString());
+        liquidType = Integer.parseInt(dataRow.get(3).toString());
+        parameter_1 = Integer.parseInt(dataRow.get(4).toString());
+        parameter_2 = Integer.parseInt(dataRow.get(5).toString());
+        sandConcentration = Double.parseDouble(dataRow.get(6).toString());
+        DRE = Double.parseDouble(dataRow.get(7).toString());
 
     }
 

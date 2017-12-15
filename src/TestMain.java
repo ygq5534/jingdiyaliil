@@ -1,16 +1,19 @@
+import java.io.IOException;
 import java.util.ArrayList;
+import java.io.File;
 import java.util.Iterator;
+import java.util.List;
 
 public class TestMain {
     public static  ArrayList<ArrayList<Double>> segData = new ArrayList<ArrayList<Double>>();
-    static boolean isDataOver = true;
+//    static boolean isDataOver = true;
     static int index = 0;
-    public static void main(String []args){
+    public static void main(String []args)throws IOException{
         segData.add(CaculatePress.initializationSegData());
-        while (isDataOver != true) {
-            ArrayList<ArrayList<String>> dataString = readData();
+ //       while (isDataOver != true) {
+            List<List<Object>> dataString = readData();
 
-            ArrayList<ArrayList<Double>> result = new ArrayList<>();
+            List<List<Object>> result = new ArrayList<>();
 
             for (int i = 0; i < dataString.size(); i++) {
                 CaculatePress caculatePress = new CaculatePress(dataString.get(i));
@@ -18,9 +21,12 @@ public class TestMain {
                 result.add(caculateResult(caculatePress));//依据segData计算最终输出结果
             }
             writeResult(result);
-        }
+ //       }
     }
-    public static ArrayList<ArrayList<String>> readData(){
+    public static List<List<Object>> readData()throws IOException{
+        ReadData readData = new ReadData();
+        return readData.readExcel(new File("E:\\工作文件\\2016研--敏捷开发与系统重构\\" +
+                "编程操练\\编程操练_井底压力\\数据\\输入数据.xls"));
 
     }
 //    public static ArrayList<ArrayList<Double>> initialization(){//初始化程序
@@ -57,8 +63,8 @@ public class TestMain {
         }
 
     }
-    public static ArrayList<Double> caculateResult(CaculatePress caculatePress){//计算压力结果
-        ArrayList<Double> segResult = new ArrayList<>();
+    public static List<Object> caculateResult(CaculatePress caculatePress){//计算压力结果
+        List<Object> segResult = new ArrayList<>();
         double staticPress = 0,press = 0,friction = 0;
         for (int i = 0;i < segData.size();i++){
             staticPress += segData.get(i).get(1);
@@ -71,7 +77,11 @@ public class TestMain {
         return segResult;
 
     }
-    public static void writeResult(ArrayList<ArrayList<Double>> result){//写入结果
+    public static void writeResult(List<List<Object>> result){//写入结果
+        for (int i = 0;i < result.size();i++){
+            System.out.println(i+6+"\t"+result.get(i)+"\t");
+        }
+
 
     }
 }
