@@ -135,7 +135,7 @@ public class ReadData extends Data {
     public  List<List<Object>> read2003Excel(File file)throws IOException{
         List<List<Object>> list = new ArrayList<>();
         HSSFWorkbook hwb = new HSSFWorkbook(new FileInputStream(file));
-        HSSFSheet sheet = hwb.getSheetAt(0);
+        HSSFSheet sheet = hwb.getSheetAt(1);
         Object value = null;
         HSSFRow row = null;
         HSSFCell cell = null;

@@ -73,7 +73,9 @@ public class CaculatePress {
  * 计算沿程摩阻
  */
     public void caculateF(){//计算沿程摩阻
-        if (liquidType == 1)
+        if (displacement == 0){
+            segFriction = 0;
+        }else if (liquidType == 1)
             segFriction = 0.000001*caculatef()*caculatePVD();
         else
             segFriction = DRE*0.000001*caculatef()*caculatePVD();

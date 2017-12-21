@@ -21,7 +21,7 @@ public class TestMain {
                 CaculatePress caculatePress = new CaculatePress(dataString.get(i));
                 addSegData(caculatePress);//更新各个液柱段数据
                 result.add(caculateResult(caculatePress));//依据segData计算最终输出结果
-                Double b = new Double(0);
+//                Double b = new Double(0);
 //                for(int a = 0;a < segData.size();a++){
 //                    b += segData.get(a).get(0);
 //                }
@@ -83,11 +83,8 @@ public class TestMain {
         return segResult;
 
     }
-    public static void writeResult(List<List<Object>> result){//写入结果
-        for (int i = 0;i < result.size();i++){
-            System.out.println(i+6+"\t"+result.get(i)+"\t");
-        }
+    public static void writeResult(List<List<Object>> result)throws IOException{//写入结果
 
-
+        new WriteData().writeExcel(result,"data\\输出数据1.xls");
     }
 }
