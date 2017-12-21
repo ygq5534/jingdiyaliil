@@ -14,30 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadData extends Data {
-    /**
-    public static void main(String[] args){
-        List<List<Object>> data ;
-        List<Object> dataRow;
-        try {
-            data = readExcel(new File("E:\\工作文件\\2016研--敏捷开发与系统重构\\" +
-                    "编程操练\\编程操练_井底压力\\数据\\输入数据.xls"));
-            for (int i = 0;i<data.size();i++){
-                System.out.print(i+6+"\t");
-                System.out.print(data.get(i).get(0)+"\t");
-                System.out.print(data.get(i).get(1)+"\t");
-                System.out.print(data.get(i).get(2)+"\t");
-                System.out.print(data.get(i).get(3)+"\t");
-                System.out.print(data.get(i).get(4)+"\t");
-                System.out.print(data.get(i).get(5)+"\t");
-                System.out.print(data.get(i).get(6)+"\t");
-                System.out.println(data.get(i).get(7));
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
 
-    }
-     */
     public ReadData(){super();}
 
     public  List<List<Object>> readExcel(File file)throws IOException{
@@ -135,7 +112,7 @@ public class ReadData extends Data {
     public  List<List<Object>> read2003Excel(File file)throws IOException{
         List<List<Object>> list = new ArrayList<>();
         HSSFWorkbook hwb = new HSSFWorkbook(new FileInputStream(file));
-        HSSFSheet sheet = hwb.getSheetAt(1);
+        HSSFSheet sheet = hwb.getSheetAt(0);
         Object value = null;
         HSSFRow row = null;
         HSSFCell cell = null;

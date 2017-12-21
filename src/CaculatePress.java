@@ -25,6 +25,7 @@ public class CaculatePress {
     public double h;//△h
     public static double COS = 2300/4291;
     public static double PH = 2300;//纯液高度
+    //public static  ArrayList<ArrayList<Double>> segData;
 
 
     CaculatePress(){
@@ -44,12 +45,12 @@ public class CaculatePress {
     public ArrayList<Double> segmentData(){
         ArrayList<Double> segData = new ArrayList<>();
         caculateH();
-        caculateF();
         caculateStaticPress();
         segData.add(h);
         segData.add(segStaticPress);
-        segData.add(segFriction);
-        //segData.add(wellheadPressure);
+        segData.add((double)liquidType);
+        segData.add(DRE);
+        segData.add(0.0);
         return segData;
     }
 
@@ -58,7 +59,10 @@ public class CaculatePress {
         ArrayList<Double> initializationData = new ArrayList<>();
         initializationData.add((double)2300);
         initializationData.add(staticPress);
-        initializationData.add((double)0);
+
+        initializationData.add((double)1);
+        initializationData.add(0.75);
+        initializationData.add(0.0);
         return initializationData;
     }
 /**
@@ -72,13 +76,17 @@ public class CaculatePress {
 /**
  * 计算沿程摩阻
  */
-    public void caculateF(){//计算沿程摩阻
-        if (displacement == 0){
-            segFriction = 0;
-        }else if (liquidType == 1)
-            segFriction = 0.000001*caculatef()*caculatePVD();
-        else
-            segFriction = DRE*0.000001*caculatef()*caculatePVD();
+    public ArrayList<ArrayList<Double>> renewFriction(ArrayList<ArrayList<Double>> segDataP){
+        for (int i = 0;i < segDataP.size();i++){
+            if (displacement == 0){
+                segDataP.get(i).set(4,0.0);
+            }else if (segDataP.get(i).get(2).intValue() == 1){
+                segDataP.get(i).set(4,0.000001*caculatef()*caculatePVD());
+            }else if (segDataP.get(i).get(2).intValue() == 2){
+                segDataP.get(i).set(4,0.000001*caculatef()*caculatePVD()*segDataP.get(i).get(3));
+            }
+        }
+        return segDataP;
     }
     public double caculatef(){//计算清水摩阻系数
         if(caculateNre()>=3000){
@@ -110,3 +118,4 @@ public class CaculatePress {
         return parameter_1+sandConcentration*(1-(parameter_1/parameter_2));
     }
 }
+

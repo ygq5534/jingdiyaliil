@@ -20,7 +20,7 @@ public class WriteData {
             File finalXlsxFile = new File(finalXlsxPath);
             Workbook workbook = getWorkbook(finalXlsxFile);
 
-            Sheet sheet = workbook.getSheetAt(1);
+            Sheet sheet = workbook.getSheetAt(0);
 //            int rowNumber = sheet.getLastRowNum();
 //            System.out.println("原始数据总行数，除属性列："+rowNumber);
 //            for (int i = 1;i <= rowNumber;i++){

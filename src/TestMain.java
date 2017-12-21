@@ -1,9 +1,6 @@
-import org.apache.poi.util.SystemOutLogger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 public class TestMain {
@@ -20,6 +17,7 @@ public class TestMain {
             for (int i = 0; i < dataString.size(); i++) {
                 CaculatePress caculatePress = new CaculatePress(dataString.get(i));
                 addSegData(caculatePress);//更新各个液柱段数据
+                renewF(caculatePress);
                 result.add(caculateResult(caculatePress));//依据segData计算最终输出结果
 //                Double b = new Double(0);
 //                for(int a = 0;a < segData.size();a++){
@@ -43,7 +41,6 @@ public class TestMain {
             double ratio = (segData.get(0).get(0)-caculatePress.segmentData().get(0))/segData.get(0).get(0);
             segData.get(0).set(0,segData.get(0).get(0)-caculatePress.segmentData().get(0));
             segData.get(0).set(1,segData.get(0).get(1)*ratio);
-            segData.get(0).set(2,segData.get(0).get(2)*ratio);
             segData.add(caculatePress.segmentData());
         }else {
             double count = segData.get(0).get(0);
@@ -56,25 +53,31 @@ public class TestMain {
             double ratio = (count - caculatePress.segmentData().get(0))/segData.get(j).get(0);
             segData.get(0).set(0,count-caculatePress.segmentData().get(0));
             segData.get(0).set(1,segData.get(j).get(1)*ratio);
-            segData.get(0).set(2,segData.get(j).get(2)*ratio);
+            segData.get(0).set(2,segData.get(j).get(2));
+            segData.get(0).set(3,segData.get(j).get(3));
+            segData.get(0).set(4,segData.get(j).get(4));
             for(int a = 1;j + a < segData.size();a++){
                 segData.get(a).set(0,segData.get(j+a).get(0));
                 segData.get(a).set(1,segData.get(j+a).get(1));
                 segData.get(a).set(2,segData.get(j+a).get(2));
+                segData.get(a).set(3,segData.get(j+a).get(3));
+                segData.get(a).set(4,segData.get(j+a).get(4));
             }
             for(;j>0;j--){
                 segData.remove(segData.size()-1);
             }
-            segData.add(caculatePress.segmentData());
+            segData.add(caculatePress.segmentData());//??
         }
-
+    }
+    public static void renewF(CaculatePress caculatePress){
+        segData = caculatePress.renewFriction(segData);
     }
     public static List<Object> caculateResult(CaculatePress caculatePress){//计算压力结果
         List<Object> segResult = new ArrayList<>();
         double staticPress = 0,press = 0,friction = 0;
         for (int i = 0;i < segData.size();i++){
             staticPress += segData.get(i).get(1);
-            friction += segData.get(i).get(2);
+            friction += segData.get(i).get(4);
         }
         press = caculatePress.wellheadPressure+staticPress-friction;
         segResult.add(staticPress);
