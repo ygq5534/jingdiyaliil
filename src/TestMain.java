@@ -1,3 +1,5 @@
+import org.apache.poi.util.SystemOutLogger;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
@@ -19,14 +21,18 @@ public class TestMain {
                 CaculatePress caculatePress = new CaculatePress(dataString.get(i));
                 addSegData(caculatePress);//更新各个液柱段数据
                 result.add(caculateResult(caculatePress));//依据segData计算最终输出结果
+                Double b = new Double(0);
+//                for(int a = 0;a < segData.size();a++){
+//                    b += segData.get(a).get(0);
+//                }
+//                System.out.println(i+6+"\t"+b);
             }
             writeResult(result);
  //       }
     }
     public static List<List<Object>> readData()throws IOException{
         ReadData readData = new ReadData();
-        return readData.readExcel(new File("E:\\工作文件\\2016研--敏捷开发与系统重构\\" +
-                "编程操练\\编程操练_井底压力\\数据\\输入数据.xls"));
+        return readData.readExcel(new File("data\\输入数据.xls"));
 
     }
 //    public static ArrayList<ArrayList<Double>> initialization(){//初始化程序
@@ -51,7 +57,7 @@ public class TestMain {
             segData.get(0).set(0,count-caculatePress.segmentData().get(0));
             segData.get(0).set(1,segData.get(j).get(1)*ratio);
             segData.get(0).set(2,segData.get(j).get(2)*ratio);
-            for(int a = 1;j+a<segData.size();a++){
+            for(int a = 1;j + a < segData.size();a++){
                 segData.get(a).set(0,segData.get(j+a).get(0));
                 segData.get(a).set(1,segData.get(j+a).get(1));
                 segData.get(a).set(2,segData.get(j+a).get(2));

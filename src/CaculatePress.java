@@ -23,7 +23,7 @@ public class CaculatePress {
     public double segStaticPress;
     public double segFriction;
     public double h;//△h
-
+    public static double COS = 2300/4291;
     public static double PH = 2300;//纯液高度
 
 
@@ -37,8 +37,7 @@ public class CaculatePress {
         parameter_1 = Integer.parseInt(dataRow.get(4).toString());
         parameter_2 = Integer.parseInt(dataRow.get(5).toString());
         sandConcentration = Double.parseDouble(dataRow.get(6).toString());
-        DRE = Double.parseDouble(dataRow.get(7).toString());
-
+        DRE = Double.parseDouble(dataRow.get(7).toString())/100;
     }
 
 
@@ -50,7 +49,7 @@ public class CaculatePress {
         segData.add(h);
         segData.add(segStaticPress);
         segData.add(segFriction);
-        segData.add(wellheadPressure);
+        //segData.add(wellheadPressure);
         return segData;
     }
 
@@ -63,12 +62,12 @@ public class CaculatePress {
         return initializationData;
     }
 /**
- * 计算排除液体高度
+ *  计算排除液体高度
  */
 
     public void caculateH(){//计算排出液体高度
         double displacementSecond = displacement/60;//每秒排出量
-        h = displacementSecond/(PI*(diameter*diameter/4));
+        h = (displacementSecond/(PI*(diameter*diameter/4)));
     }
 /**
  * 计算沿程摩阻
@@ -106,6 +105,6 @@ public class CaculatePress {
             segStaticPress = 0.000001*mixDiameter()*g*h;
     }
     public double mixDiameter(){
-        return parameter_1+sandConcentration*(1-parameter_1/parameter_2);
+        return parameter_1+sandConcentration*(1-(parameter_1/parameter_2));
     }
 }
